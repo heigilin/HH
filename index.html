@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軒儀照護院手部衛生互動教學</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #657189;
+      --line: #d9e0ea;
+      --paper: #f7f9fc;
+      --white: #ffffff;
+      --teal: #0f766e;
+      --teal-soft: #e2f5f2;
+      --blue: #2457a6;
+      --blue-soft: #eaf1ff;
+      --rose: #b42318;
+      --rose-soft: #fff0ed;
+      --amber: #a15c00;
+      --amber-soft: #fff5dc;
+      --green: #157347;
+      --green-soft: #eaf7ef;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.12);
+      --font: "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font);
+      line-height: 1.6;
+    }
+    button, input { font: inherit; }
+    img, video { max-width: 100%; display: block; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 180px;
+    }
+    .brand strong { color: var(--teal); font-size: 1rem; }
+    .brand span { color: var(--muted); font-size: 0.78rem; }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav-links a, .ghost-btn, .primary-btn, .option-btn {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 9px 12px;
+      min-height: 40px;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+    .nav-links a:hover, .ghost-btn:hover, .primary-btn:hover, .option-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--teal);
+    }
+    .primary-btn {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+      font-weight: 700;
+    }
+    .ghost-btn[aria-pressed="true"] {
+      background: var(--blue-soft);
+      border-color: var(--blue);
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background: #07111f;
+      color: white;
+    }
+    .video-title-strip {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 22px 0 12px;
+    }
+    .video-title-strip h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.65rem, 4vw, 3.4rem);
+      line-height: 1.12;
+    }
+    .video-title-strip p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(1rem, 1.7vw, 1.18rem);
+    }
+    .hero-video-stage {
+      min-height: 58vh;
+      background: #050b14;
+      display: grid;
+      place-items: center;
+    }
+    .hero-video-stage video {
+      width: 100%;
+      height: min(72vh, 760px);
+      min-height: 360px;
+      object-fit: contain;
+      background: #050b14;
+    }
+    .hero-inner {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 16px 0 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.65fr);
+      gap: 28px;
+      align-items: end;
+    }
+    .hero p {
+      margin: 0 0 18px;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-actions .primary-btn, .hero-actions .ghost-btn {
+      border-color: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    }
+    .hero-actions .ghost-btn {
+      background: rgba(255, 255, 255, 0.13);
+      color: white;
+    }
+    .hero-panel {
+      background: #ffffff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .video-help {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 12px 0 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.95rem;
+    }
+    .hero-panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: var(--teal);
+    }
+    .hero-panel p {
+      color: #273449;
+      font-weight: 700;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    .hero-panel * {
+      text-shadow: none;
+    }
+    .mini-stat {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .mini-stat div {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .mini-stat strong {
+      display: block;
+      font-size: 1.2rem;
+      color: var(--blue);
+    }
+    .mini-stat span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    section {
+      padding: 54px 18px;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.45rem);
+      line-height: 1.15;
+    }
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 720px;
+    }
+    .band-white { background: var(--white); }
+    .band-teal { background: linear-gradient(180deg, #f6fcfb, #eaf7f5); }
+    .band-blue { background: linear-gradient(180deg, #f9fbff, #edf4ff); }
+
+    .language-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .step-tile {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 210px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .step-tile b {
+      color: var(--teal);
+      font-size: 3rem;
+      line-height: 1;
+      min-width: 1.2em;
+    }
+    .step-tile strong {
+      display: block;
+      font-size: 1.18rem;
+      line-height: 1.45;
+    }
+    .tri {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .tri p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .tri .zh { color: var(--ink); font-weight: 700; }
+    .tri .en { color: var(--blue); }
+    .tri .vi { color: var(--teal); }
+
+    .photo-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .photo-card, .flow-card, .quiz-box, .feedback-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.07);
+    }
+    .photo-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .photo-card figcaption {
+      padding: 12px 14px 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .video-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .video-card {
+      background: #0d1421;
+      border: 1px solid #22324f;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    video {
+      width: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      background: #0d1421;
+    }
+    .video-caption {
+      padding: 14px 16px 16px;
+      color: rgba(255, 255, 255, 0.88);
+      background: #0d1421;
+      border-top: 1px solid #22324f;
+    }
+    .video-caption h3 {
+      margin: 0 0 8px;
+      color: #9ee6dc;
+      font-size: 1.08rem;
+    }
+    .video-caption p {
+      margin: 4px 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.92rem;
+    }
+    .video-caption a {
+      color: #bfdbfe;
+      font-weight: 700;
+    }
+
+    .flow-list {
+      display: grid;
+      gap: 10px;
+    }
+    .flow-card {
+      padding: 14px;
+    }
+    .flow-card h3, .quiz-box h3, .feedback-card h3 {
+      margin: 0 0 10px;
+      color: var(--teal);
+      font-size: 1.1rem;
+    }
+    .flow-card ul {
+      margin: 8px 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .quiz-box {
+      padding: 18px;
+    }
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .question {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .question p { margin: 0 0 6px; }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option-btn {
+      width: 100%;
+      min-height: 74px;
+      text-align: left;
+      display: grid;
+      gap: 3px;
+    }
+    .option-btn.correct {
+      background: var(--green-soft);
+      border-color: var(--green);
+    }
+    .option-btn.incorrect {
+      background: var(--rose-soft);
+      border-color: var(--rose);
+    }
+    .option-btn span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .feedback-card {
+      padding: 18px;
+      position: sticky;
+      top: 78px;
+    }
+    .feedback-card.good {
+      border-color: var(--green);
+      background: linear-gradient(180deg, var(--green-soft), white);
+    }
+    .feedback-card.warn {
+      border-color: var(--rose);
+      background: linear-gradient(180deg, var(--rose-soft), white);
+    }
+    .score-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .score-board div {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .score-board strong {
+      display: block;
+      color: var(--blue);
+      font-size: 1.4rem;
+    }
+
+    .records-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.72fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .record-list {
+      display: grid;
+      gap: 10px;
+    }
+    .record-btn {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .record-btn:hover, .record-btn.active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+    }
+    .record-btn strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1rem;
+    }
+    .record-btn span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .record-score {
+      min-width: 72px;
+      text-align: center;
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .record-detail {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      position: sticky;
+      top: 78px;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.07);
+    }
+    .record-detail h3 {
+      margin: 0 0 8px;
+      color: var(--teal);
+    }
+    .record-detail p {
+      margin: 6px 0;
+      color: var(--muted);
+    }
+    .answer-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .answer-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      background: var(--paper);
+    }
+    .answer-row.ok { border-color: #a9d8bd; background: var(--green-soft); }
+    .answer-row.no { border-color: #f3b6ad; background: var(--rose-soft); }
+    .answer-mark {
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .survey-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .survey-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .survey-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .survey-item input {
+      width: 100%;
+      margin: 12px 0 4px;
+      accent-color: var(--teal);
+    }
+    .survey-value {
+      min-width: 54px;
+      text-align: center;
+      background: var(--amber-soft);
+      border: 1px solid #ffd37a;
+      color: var(--amber);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-weight: 800;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .source-note {
+      border-left: 4px solid var(--teal);
+      background: white;
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      min-height: 140px;
+    }
+    .source-note h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    .source-note p {
+      margin: 0;
+      color: var(--muted);
+    }
+    footer {
+      padding: 28px 18px 40px;
+      color: var(--muted);
+      background: #172033;
+    }
+    footer .wrap {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-inner, .video-flow, .quiz-layout, .records-layout {
+        grid-template-columns: 1fr;
+      }
+      .language-grid {
+        grid-template-columns: repeat(2, minmax(240px, 1fr));
+      }
+      .photo-strip, .source-grid {
+        grid-template-columns: 1fr;
+      }
+      .feedback-card, .record-detail { position: static; }
+    }
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-links { justify-content: flex-start; }
+      .hero { min-height: auto; }
+      .hero-inner { padding-top: 20px; }
+      .hero-video-stage video { height: 58vh; min-height: 260px; }
+      .language-grid, .survey-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head {
+        display: block;
+      }
+      video { min-height: 260px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <nav class="nav" aria-label="頁面導覽">
+      <div class="brand">
+        <strong>軒儀照護院手部衛生</strong>
+        <span>中 English Việt 並列互動教學</span>
+      </div>
+      <div class="nav-links">
+        <a href="#steps">七字訣</a>
+        <a href="#scene">照護流程</a>
+        <a href="#quiz">學員作答</a>
+        <a href="#records">答題記錄</a>
+        <a href="#survey">課後回饋</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero" id="film" aria-labelledby="page-title">
+      <div class="video-title-strip">
+        <h1 id="page-title">濕洗手示範影片</h1>
+        <p>請先觀看完整示範，再對照下方七字訣複習動作順序。</p>
+      </div>
+      <div class="hero-video-stage">
+        <video id="mainHandwashingVideo" controls autoplay muted playsinline preload="auto" aria-label="濕洗手示範影片">
+          <source src="handwashing_training_web.mp4?v=20260929-2" type="video/mp4">
+          影片暫時無法播放，請告知課程工作人員。
+        </video>
+      </div>
+      <div class="video-help">若影片沒有自動開始，請按影片左下角播放鍵，或點選下方「播放影片」。</div>
+      <div class="hero-inner">
+        <div>
+          <p>看完影片後，請跟著七字訣複習動作，完成照護流程情境問答與課後回饋。</p>
+          <div class="hero-actions">
+            <button class="primary-btn" type="button" onclick="playMainVideo()">播放影片</button>
+            <button class="ghost-btn" type="button" onclick="unmuteMainVideo()">開啟聲音</button>
+            <a class="ghost-btn" href="#quiz">開始作答</a>
+            <button class="ghost-btn" type="button" onclick="speakIntro()">播放中越導入</button>
+            <button class="ghost-btn" type="button" onclick="stopSpeech()">停止語音</button>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="學習摘要">
+          <h2>今日學習重點</h2>
+          <p>看示範、記口訣、練情境、做回饋。照護每一位住民前後，都要在正確時機完成手部衛生。</p>
+          <div class="mini-stat">
+            <div><strong>7</strong><span>洗手口訣</span></div>
+            <div><strong>12</strong><span>問卷人次</span></div>
+            <div><strong>4.4-4.8</strong><span>平均評分/5</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="steps" class="band-white">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>手部衛生七字訣</h2>
+            <p>這七個步驟是頁首溼洗手影片的文字說明。請先看完整影片，再對照中文、英文、越南文複習動作順序。</p>
+          </div>
+        </div>
+        <div class="language-grid" id="stepsGrid"></div>
+      </div>
+    </section>
+
+    <section id="scene" class="band-teal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>照護流程中的手部衛生</h2>
+            <p>午睡後連續換尿片、協助下床、推輪椅至活動區與接觸床欄後，都是需要特別注意手部衛生的照護時機。</p>
+          </div>
+        </div>
+        <div class="video-flow">
+          <article class="video-card">
+            <div class="video-caption">
+              <h3>影片觀看重點</h3>
+              <p>中文：回到頁首影片，觀察手掌、手背、指縫、指尖與手腕是否完整搓洗。</p>
+              <p>English: Return to the top video and watch whether palms, backs of hands, finger webs, fingertips, and wrists are cleaned.</p>
+              <p>Tiếng Việt: Quay lại video đầu trang và quan sát lòng bàn tay, mu bàn tay, kẽ tay, đầu ngón tay và cổ tay có được rửa đủ không.</p>
+              <p><a href="#film">回到濕洗手示範影片</a></p>
+            </div>
+          </article>
+          <div class="flow-list">
+            <article class="flow-card">
+              <h3>1. 換尿片與排泄物處理前後</h3>
+              <div class="tri">
+                <p class="zh">中文：先備物，再做手部衛生；處理後、脫手套後都要再次清潔雙手。</p>
+                <p class="en">English: Clean hands before care, after diaper care, and after removing gloves.</p>
+                <p class="vi">Tiếng Việt: Vệ sinh tay trước khi chăm sóc, sau khi thay tã và sau khi tháo găng.</p>
+              </div>
+            </article>
+            <article class="flow-card">
+              <h3>2. 下一位住民或下一個照護動作前</h3>
+              <div class="tri">
+                <p class="zh">中文：連續照顧不同住民時，中間一定要做乾洗手或濕洗手。</p>
+                <p class="en">English: Between residents, perform alcohol hand rub or handwashing.</p>
+                <p class="vi">Tiếng Việt: Giữa hai người cư trú, phải sát khuẩn tay hoặc rửa tay.</p>
+              </div>
+            </article>
+            <article class="flow-card">
+              <h3>3. 接觸床欄、輪椅、門把或備餐桌後</h3>
+              <div class="tri">
+                <p class="zh">中文：環境接觸後不要直接碰觸住民、藥品或食物。</p>
+                <p class="en">English: After touching the environment, clean hands before touching residents, medicine, or food.</p>
+                <p class="vi">Tiếng Việt: Sau khi chạm môi trường, vệ sinh tay trước khi chạm người cư trú, thuốc hoặc thức ăn.</p>
+              </div>
+            </article>
+            <article class="flow-card">
+              <h3>現場提醒</h3>
+              <ul>
+                <li>乾洗手搓揉 20-30 秒，直到雙手乾燥。</li>
+                <li>手上可見髒污、接觸排泄物後，優先用肥皂和清水濕洗手。</li>
+                <li>螢光劑可用來回饋是否有漏洗位置，作為教育評值。</li>
+              </ul>
+              <div class="pill-row">
+                <span class="pill">午睡後流程</span>
+                <span class="pill">床欄螢光劑</span>
+                <span class="pill">回覆示教</span>
+                <span class="pill">外籍同仁圖像化學習</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-white">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>手部衛生照片</h2>
+            <p>請觀察螢光燈確核照片，確認掌心、指縫、指尖與手腕是否有確實清潔。</p>
+          </div>
+        </div>
+        <div class="photo-strip" id="photoGallery"></div>
+      </div>
+    </section>
+
+    <section id="quiz" class="band-blue">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>學員作答</h2>
+            <p>請閱讀題目後選擇一個答案。答題後會立即顯示正確與否，並播放答對鼓勵或答錯說明。</p>
+          </div>
+          <div class="pill-row" role="group" aria-label="語音模式">
+            <button class="ghost-btn" id="voiceBoth" type="button" aria-pressed="true" onclick="setVoiceMode('both')">中越</button>
+            <button class="ghost-btn" id="voiceZh" type="button" aria-pressed="false" onclick="setVoiceMode('zh')">中文</button>
+            <button class="ghost-btn" id="voiceVi" type="button" aria-pressed="false" onclick="setVoiceMode('vi')">Tiếng Việt</button>
+          </div>
+        </div>
+        <div class="quiz-layout">
+          <div class="quiz-box">
+            <div class="quiz-meta">
+              <span id="quizProgress">第 1 題 / 6 題</span>
+              <span>答對 <b id="correctCount">0</b> 題</span>
+            </div>
+            <div class="question" id="questionBox"></div>
+            <div class="options" id="optionsBox"></div>
+            <div class="quiz-actions">
+              <button class="primary-btn" type="button" onclick="speakCurrentQuestion()">播放題目</button>
+              <button class="ghost-btn" type="button" onclick="nextQuestion()">下一題</button>
+              <button class="ghost-btn" type="button" onclick="resetQuiz()">重新開始</button>
+            </div>
+          </div>
+          <aside class="feedback-card" id="feedbackPanel" aria-live="polite">
+            <h3>答題回饋</h3>
+            <p id="feedbackText">請先選擇答案。系統會用中文與越南文播放鼓勵或說明。</p>
+            <div class="score-board">
+              <div><strong id="scoreNow">0</strong><span>目前得分</span></div>
+              <div><strong id="answeredNow">0</strong><span>已答題數</span></div>
+            </div>
+            <button class="ghost-btn" type="button" onclick="repeatFeedback()">重播回饋</button>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="records" class="band-white">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>學員答題記錄</h2>
+          </div>
+          <button class="ghost-btn" type="button" onclick="speakRecordSummary()">播放記錄摘要</button>
+        </div>
+        <div class="records-layout">
+          <div class="record-list" id="recordList"></div>
+          <aside class="record-detail" id="recordDetail" aria-live="polite"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="survey" class="band-white">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>課後回饋練習</h2>
+            <p>請依今天課程感受給分，協助課程團隊了解哪些內容最有幫助、哪些地方還需要再加強。</p>
+          </div>
+          <button class="ghost-btn" type="button" onclick="speakSurvey()">播放問卷說明</button>
+        </div>
+        <div class="survey-grid" id="surveyGrid"></div>
+      </div>
+    </section>
+
+    <section class="band-teal">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>學習後要做到</h2>
+            <p>把手部衛生變成每天照護流程的一部分，看到時機、立刻行動、互相提醒。</p>
+          </div>
+        </div>
+        <div class="source-grid">
+          <article class="source-note">
+            <h3>流程化</h3>
+            <p>把手部衛生放入午睡後換尿片、下床、輪椅移位、備餐與環境接觸後的具體節點。</p>
+          </article>
+          <article class="source-note">
+            <h3>圖像化</h3>
+            <p>用照片、影片、短句與七字訣降低文字門檻，支援外籍照護人員共同學習。</p>
+          </article>
+          <article class="source-note">
+            <h3>回饋化</h3>
+            <p>用螢光劑、現場問答、回覆示教與課後評值，讓改善可以被看見與追蹤。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      軒儀照護院手部衛生互動教學。請依照影片示範與照護流程提醒，完成每一次正確的手部衛生。
+    </div>
+  </footer>
+
+  <script>
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    const sevenSteps = [
+      { key: "內", zh: "掌心對掌心搓揉", en: "Palm to palm", vi: "Chà lòng bàn tay vào nhau" },
+      { key: "外", zh: "掌心搓手背", en: "Back of each hand", vi: "Chà mu bàn tay" },
+      { key: "夾", zh: "十指交錯洗指縫", en: "Between the fingers", vi: "Chà kẽ các ngón tay" },
+      { key: "弓", zh: "指背彎曲搓掌心", en: "Backs of fingers and knuckles", vi: "Chà lưng các đốt ngón tay" },
+      { key: "大", zh: "包住大拇指旋轉", en: "Thumbs", vi: "Chà ngón cái" },
+      { key: "立", zh: "指尖立起洗指甲", en: "Fingertips and nails", vi: "Chà đầu ngón tay và móng tay" },
+      { key: "腕", zh: "搓洗手腕", en: "Wrists", vi: "Chà cổ tay" }
+    ];
+
+    const coursePhotos = [
+      "手部衛生螢光燈確核.jpg",
+      "手部衛生螢光燈確核2.jpg",
+      "手部衛生螢光燈確核3.jpg",
+      "手部衛生螢光燈確核4.jpg",
+      "手部衛生螢光燈確核5.jpg",
+      "手部衛生螢光燈確核6.jpg"
+    ];
+
+    const quiz = [
+      {
+        zh: "午睡後連續協助兩位住民換尿片，中間最正確的做法是什麼？",
+        en: "After helping one resident with diaper care, what should you do before helping the next resident?",
+        vi: "Sau khi thay tã cho một người cư trú, trước khi chăm sóc người tiếp theo cần làm gì?",
+        options: [
+          { zh: "直接去下一床，節省時間。", en: "Go directly to the next bed to save time.", vi: "Đi ngay sang giường kế tiếp để tiết kiệm thời gian.", correct: false },
+          { zh: "先做手部衛生，再照顧下一位住民。", en: "Perform hand hygiene before caring for the next resident.", vi: "Vệ sinh tay trước khi chăm sóc người tiếp theo.", correct: true },
+          { zh: "只要戴手套就不用洗手。", en: "If gloves are worn, hand hygiene is not needed.", vi: "Nếu có đeo găng thì không cần vệ sinh tay.", correct: false }
+        ],
+        goodZh: "答對了，很好。連續照顧不同住民，中間一定要做手部衛生。",
+        goodVi: "Đúng rồi, rất tốt. Khi chăm sóc người khác nhau, giữa hai lần chăm sóc phải vệ sinh tay.",
+        badZh: "還差一點。從前一位住民到下一位住民前，手可能已接觸排泄物、床欄或環境，一定要先清潔雙手。",
+        badVi: "Chưa đúng. Trước khi sang người cư trú tiếp theo, tay có thể đã chạm chất thải, thanh giường hoặc môi trường, nên phải vệ sinh tay."
+      },
+      {
+        zh: "乾洗手液正確搓揉時間通常是多少？",
+        en: "How long should alcohol hand rub usually be rubbed?",
+        vi: "Dung dịch sát khuẩn tay nhanh thường cần chà trong bao lâu?",
+        options: [
+          { zh: "3 秒，擦一下就好。", en: "3 seconds, just a quick wipe.", vi: "3 giây, lau nhanh là đủ.", correct: false },
+          { zh: "20 到 30 秒，直到雙手乾燥。", en: "20 to 30 seconds, until hands are dry.", vi: "20 đến 30 giây, cho đến khi tay khô.", correct: true },
+          { zh: "只要聞到酒精味就可以停止。", en: "Stop once you smell alcohol.", vi: "Ngửi thấy mùi cồn là dừng được.", correct: false }
+        ],
+        goodZh: "答對了。乾洗手要搓 20 到 30 秒，並涵蓋內、外、夾、弓、大、立、腕。",
+        goodVi: "Đúng rồi. Sát khuẩn tay cần chà 20 đến 30 giây và làm đủ bảy bước.",
+        badZh: "不正確。時間太短會漏掉指縫、指尖和手腕，請搓揉 20 到 30 秒直到乾燥。",
+        badVi: "Chưa đúng. Thời gian quá ngắn dễ bỏ sót kẽ tay, đầu ngón tay và cổ tay. Hãy chà 20 đến 30 giây đến khi khô."
+      },
+      {
+        zh: "手上有可見髒污或接觸排泄物後，應優先選哪一種手部衛生？",
+        en: "If hands are visibly dirty or after contact with stool, which method is preferred?",
+        vi: "Khi tay thấy bẩn hoặc sau khi tiếp xúc phân, nên ưu tiên cách nào?",
+        options: [
+          { zh: "用肥皂和清水濕洗手。", en: "Wash with soap and water.", vi: "Rửa tay bằng xà phòng và nước.", correct: true },
+          { zh: "只噴香水蓋掉味道。", en: "Use perfume to cover the smell.", vi: "Chỉ xịt nước hoa để che mùi.", correct: false },
+          { zh: "用紙巾擦一下即可。", en: "Wipe quickly with tissue only.", vi: "Chỉ lau nhanh bằng khăn giấy.", correct: false }
+        ],
+        goodZh: "答對了。看得到髒污或接觸排泄物後，要用肥皂和清水濕洗手。",
+        goodVi: "Đúng rồi. Khi tay bẩn rõ hoặc tiếp xúc chất thải, cần rửa tay bằng xà phòng và nước.",
+        badZh: "不正確。可見髒污不是用擦拭或香味處理，應使用肥皂和清水洗手。",
+        badVi: "Chưa đúng. Tay bẩn rõ không thể chỉ lau hoặc dùng mùi thơm, cần rửa bằng xà phòng và nước."
+      },
+      {
+        zh: "脫手套後是否還需要做手部衛生？",
+        en: "Do you still need hand hygiene after removing gloves?",
+        vi: "Sau khi tháo găng tay có cần vệ sinh tay không?",
+        options: [
+          { zh: "需要，脫手套後仍要清潔雙手。", en: "Yes, clean hands after removing gloves.", vi: "Có, sau khi tháo găng vẫn phải vệ sinh tay.", correct: true },
+          { zh: "不需要，手套已經完全保護雙手。", en: "No, gloves fully protect hands.", vi: "Không cần, găng đã bảo vệ hoàn toàn.", correct: false },
+          { zh: "只有主管在旁邊才需要。", en: "Only when a supervisor is nearby.", vi: "Chỉ cần khi có quản lý ở bên cạnh.", correct: false }
+        ],
+        goodZh: "答對了。手套可能在脫除時污染雙手，所以脫手套後仍要做手部衛生。",
+        goodVi: "Đúng rồi. Khi tháo găng, tay vẫn có thể bị nhiễm bẩn, nên phải vệ sinh tay.",
+        badZh: "不正確。手套不能取代手部衛生，脫除手套後仍可能污染雙手。",
+        badVi: "Chưa đúng. Găng tay không thay thế vệ sinh tay. Sau khi tháo găng, tay vẫn có thể bị bẩn."
+      },
+      {
+        zh: "接觸床欄、輪椅或門把後，下一步要接觸住民或食物前應做什麼？",
+        en: "After touching bed rails, wheelchairs, or doorknobs, what should you do before touching a resident or food?",
+        vi: "Sau khi chạm thanh giường, xe lăn hoặc tay nắm cửa, trước khi chạm người cư trú hoặc thức ăn cần làm gì?",
+        options: [
+          { zh: "只要手看起來乾淨就可以繼續。", en: "Continue if hands look clean.", vi: "Nếu tay nhìn sạch thì tiếp tục.", correct: false },
+          { zh: "先做手部衛生。", en: "Perform hand hygiene first.", vi: "Vệ sinh tay trước.", correct: true },
+          { zh: "用衣服擦手。", en: "Wipe hands on clothing.", vi: "Lau tay vào áo.", correct: false }
+        ],
+        goodZh: "答對了。環境表面可能有病原，接觸住民、藥品或食物前要先清潔雙手。",
+        goodVi: "Đúng rồi. Bề mặt môi trường có thể có mầm bệnh, nên vệ sinh tay trước khi chạm người, thuốc hoặc thức ăn.",
+        badZh: "還不對。環境表面看似乾淨仍可能有污染，請先做手部衛生再進行下一步。",
+        badVi: "Chưa đúng. Bề mặt nhìn sạch vẫn có thể nhiễm bẩn, hãy vệ sinh tay trước khi làm bước tiếp theo."
+      },
+      {
+        zh: "七字訣的最後一個字「腕」代表什麼？",
+        en: "What does the last word, wrist, mean in the seven-step mnemonic?",
+        vi: "Chữ cuối cùng, cổ tay, trong bảy bước có nghĩa là gì?",
+        options: [
+          { zh: "只洗手掌，不用管手腕。", en: "Only wash palms, not wrists.", vi: "Chỉ rửa lòng bàn tay, không cần cổ tay.", correct: false },
+          { zh: "搓洗手腕，尤其是袖口或手套邊界附近。", en: "Clean the wrists, especially near cuffs or glove edges.", vi: "Chà cổ tay, nhất là gần tay áo hoặc mép găng.", correct: true },
+          { zh: "代表洗完後揮手即可。", en: "It means waving hands after washing.", vi: "Nghĩa là rửa xong thì vẫy tay.", correct: false }
+        ],
+        goodZh: "答對了。手腕常接觸袖口、床邊或手套邊界，七字訣最後要記得洗到手腕。",
+        goodVi: "Đúng rồi. Cổ tay thường chạm tay áo, mép giường hoặc mép găng, nên bước cuối phải chà cổ tay.",
+        badZh: "不正確。腕不是裝飾動作，而是提醒要洗到手腕和袖口附近的邊界。",
+        badVi: "Chưa đúng. Cổ tay không phải động tác trang trí, mà nhắc cần rửa vùng cổ tay gần tay áo."
+      }
+    ];
+
+    const surveyItems = [
+      { zh: "今日上課時間的安排", en: "Today's class schedule", vi: "Lịch trình học hôm nay" },
+      { zh: "今日上課場地設備", en: "Equipment at today's learning site", vi: "Thiết bị tại địa điểm học hôm nay" },
+      { zh: "今日講師授課方式", en: "Teaching method of today's instructor", vi: "Phương pháp giảng dạy của giảng viên hôm nay" },
+      { zh: "今日講師授課內容", en: "Content taught by today's instructor", vi: "Nội dung giảng dạy của giảng viên hôm nay" },
+      { zh: "今日課程內容對工作上的協助", en: "How today's course supports work", vi: "Nội dung khóa học hôm nay hỗ trợ công việc như thế nào" },
+      { zh: "今日課程學習帶給我收穫及成長", en: "What I gained and learned today", vi: "Việc học tập từ khóa học hôm nay mang lại điều bổ ích và sự trưởng thành" }
+    ];
+
+    const recordLabels = [
+      "連續照護不同住民前需手部衛生",
+      "乾洗手需搓揉 20-30 秒",
+      "可見髒污或接觸排泄物後用肥皂清水",
+      "脫手套後仍需手部衛生",
+      "接觸床欄、輪椅或門把後需清潔雙手",
+      "七字訣最後要洗到手腕"
+    ];
+
+    const participantRecords = [
+      { name: "李瑋珣", date: "115/8/10", shift: "日班", answers: [true, true, true, true, true, true], note: "可完整說明乾洗手與濕洗手使用時機。" },
+      { name: "陳裕娟", date: "115/8/12", shift: "日班", answers: [true, true, false, true, true, true], note: "可再提醒可見髒污時優先使用肥皂與清水。" },
+      { name: "TRINH THI CHINH", date: "115/8/14", shift: "日班", answers: [true, false, true, true, true, false], note: "建議搭配影片複習乾洗手時間與手腕步驟。" },
+      { name: "簡靜純", date: "115/8/19", shift: "日班", answers: [true, true, true, true, true, true], note: "答題穩定，可協助帶領回覆示教。" },
+      { name: "張元宥", date: "115/8/21", shift: "小夜", answers: [true, true, true, false, true, true], note: "脫手套後仍需手部衛生可列入下次提醒。" },
+      { name: "TONG THI MAI", date: "115/8/26", shift: "日班", answers: [true, true, true, true, false, true], note: "加強環境接觸後、接觸住民前的手部衛生時機。" },
+      { name: "NGUYEN THI HUONG", date: "115/8/28", shift: "日班", answers: [true, true, true, true, true, false], note: "七字訣腕部步驟可再以圖片提醒。" },
+      { name: "DANG THI THU HIEN", date: "115/9/2", shift: "日班", answers: [true, false, true, true, true, true], note: "乾洗手搓揉時間需再強化記憶。" },
+      { name: "NGUYEN NGOC HUYEN", date: "115/9/4", shift: "小夜", answers: [true, true, true, true, true, true], note: "能掌握照護流程中間的手部衛生節點。" },
+      { name: "MAI THI HIEN", date: "115/9/9", shift: "日班", answers: [false, true, true, true, true, true], note: "連續照顧下一位住民前需先清潔雙手。" },
+      { name: "全美華", date: "115/9/16", shift: "日班", answers: [true, true, true, true, true, true], note: "能將床欄與輪椅接觸後的清潔時機說明清楚。" },
+      { name: "DOAN THI THOA", date: "115/9/23", shift: "日班", answers: [true, true, false, true, true, true], note: "可見髒污與排泄物接觸後的濕洗手時機可再複習。" }
+    ];
+
+    let voiceMode = "both";
+    let current = 0;
+    let answered = 0;
+    let correct = 0;
+    let locked = false;
+    let lastFeedback = null;
+
+    function renderSteps() {
+      document.getElementById("stepsGrid").innerHTML = sevenSteps.map((step, index) => `
+        <article class="step-tile">
+          <b>${step.key}</b>
+          <div>
+            <strong>${index + 1}. ${step.zh}</strong>
+            <div class="tri">
+              <p class="en">${step.en}</p>
+              <p class="vi">${step.vi}</p>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function photoCaption(fileName) {
+      return fileName.replace(/\.jpg$/i, "").replace(/(\D)(\d+)$/u, "$1 $2");
+    }
+
+    function renderPhotoGallery() {
+      document.getElementById("photoGallery").innerHTML = coursePhotos.map((fileName) => {
+        const caption = photoCaption(fileName);
+        return `
+          <figure class="photo-card">
+            <img loading="lazy" src="照片/${fileName}" alt="${caption}">
+            <figcaption>${caption}</figcaption>
+          </figure>
+        `;
+      }).join("");
+    }
+
+    function renderSurvey() {
+      document.getElementById("surveyGrid").innerHTML = surveyItems.map((item, index) => `
+        <article class="survey-item">
+          <div class="survey-top">
+            <div class="tri">
+              <p class="zh">${index + 1}. ${item.zh}</p>
+              <p class="en">${item.en}</p>
+              <p class="vi">${item.vi}</p>
+            </div>
+            <span class="survey-value" id="surveyValue${index}">5分</span>
+          </div>
+          <input type="range" min="1" max="5" value="5" oninput="updateSurvey(${index}, this.value)" aria-label="${item.zh}">
+          <button class="ghost-btn" type="button" onclick="speakSurveyItem(${index})">播放此題</button>
+        </article>
+      `).join("");
+    }
+
+    function recordScore(record) {
+      return record.answers.filter(Boolean).length;
+    }
+
+    function renderRecords(activeIndex = 0) {
+      document.getElementById("recordList").innerHTML = participantRecords.map((record, index) => `
+        <button class="record-btn ${index === activeIndex ? "active" : ""}" type="button" onclick="renderRecords(${index})">
+          <span>
+            <strong>${record.name}</strong>
+            <span>${record.date}｜${record.shift}｜已答 6 題</span>
+          </span>
+          <span class="record-score">${recordScore(record)}/6</span>
+        </button>
+      `).join("");
+      renderRecordDetail(activeIndex);
+    }
+
+    function renderRecordDetail(index) {
+      const record = participantRecords[index];
+      const score = recordScore(record);
+      document.getElementById("recordDetail").innerHTML = `
+        <h3>${record.name}</h3>
+        <p>日期：${record.date}｜班別：${record.shift}｜結果：${score}/6 題正確</p>
+        <p>${record.note}</p>
+        <div class="answer-grid">
+          ${record.answers.map((ok, answerIndex) => `
+            <div class="answer-row ${ok ? "ok" : "no"}">
+              <span class="answer-mark">${ok ? "✓" : "!"}</span>
+              <span>第 ${answerIndex + 1} 題：${recordLabels[answerIndex]}｜${ok ? "正確" : "需複習"}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderQuestion() {
+      locked = false;
+      const item = quiz[current];
+      document.getElementById("quizProgress").textContent = `第 ${current + 1} 題 / ${quiz.length} 題`;
+      document.getElementById("questionBox").innerHTML = `
+        <div class="tri">
+          <p class="zh">${item.zh}</p>
+          <p class="en">${item.en}</p>
+          <p class="vi">${item.vi}</p>
+        </div>
+      `;
+      document.getElementById("optionsBox").innerHTML = item.options.map((option, index) => `
+        <button class="option-btn" type="button" onclick="answerQuestion(${index})">
+          <strong>${option.zh}</strong>
+          <span>${option.en}</span>
+          <span>${option.vi}</span>
+        </button>
+      `).join("");
+    }
+
+    function updateScore() {
+      document.getElementById("correctCount").textContent = correct;
+      document.getElementById("scoreNow").textContent = correct;
+      document.getElementById("answeredNow").textContent = answered;
+    }
+
+    function answerQuestion(optionIndex) {
+      if (locked) return;
+      locked = true;
+      answered += 1;
+      const item = quiz[current];
+      const chosen = item.options[optionIndex];
+      const buttons = Array.from(document.querySelectorAll(".option-btn"));
+      buttons.forEach((button, index) => {
+        if (item.options[index].correct) button.classList.add("correct");
+        if (index === optionIndex && !chosen.correct) button.classList.add("incorrect");
+      });
+      const panel = document.getElementById("feedbackPanel");
+      panel.classList.remove("good", "warn");
+      if (chosen.correct) {
+        correct += 1;
+        panel.classList.add("good");
+        lastFeedback = { zh: item.goodZh, vi: item.goodVi };
+      } else {
+        panel.classList.add("warn");
+        lastFeedback = { zh: item.badZh, vi: item.badVi };
+      }
+      document.getElementById("feedbackText").innerHTML = `
+        <span class="zh">${lastFeedback.zh}</span><br>
+        <span class="vi">${lastFeedback.vi}</span>
+      `;
+      updateScore();
+      repeatFeedback();
+    }
+
+    function nextQuestion() {
+      current = (current + 1) % quiz.length;
+      renderQuestion();
+    }
+
+    function resetQuiz() {
+      current = 0;
+      answered = 0;
+      correct = 0;
+      lastFeedback = null;
+      const panel = document.getElementById("feedbackPanel");
+      panel.classList.remove("good", "warn");
+      document.getElementById("feedbackText").textContent = "請先選擇答案。系統會用中文與越南文播放鼓勵或說明。";
+      updateScore();
+      renderQuestion();
+    }
+
+    function setVoiceMode(mode) {
+      voiceMode = mode;
+      document.getElementById("voiceBoth").setAttribute("aria-pressed", mode === "both");
+      document.getElementById("voiceZh").setAttribute("aria-pressed", mode === "zh");
+      document.getElementById("voiceVi").setAttribute("aria-pressed", mode === "vi");
+    }
+
+    function speak(text, lang) {
+      if (!("speechSynthesis" in window)) return;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = lang === "vi-VN" ? 0.86 : 0.92;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakPair(zh, vi) {
+      stopSpeech();
+      if (voiceMode === "zh" || voiceMode === "both") speak(zh, "zh-TW");
+      if (voiceMode === "vi" || voiceMode === "both") speak(vi, "vi-VN");
+    }
+
+    function stopSpeech() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    }
+
+    function speakIntro() {
+      speakPair(
+        "今天請把手部衛生放進每天的照護流程。換尿片後、接觸床欄後、照顧下一位住民前，都要清潔雙手。",
+        "Hôm nay chúng ta đưa vệ sinh tay vào quy trình chăm sóc hằng ngày. Sau khi thay tã, chạm thanh giường, và trước khi chăm sóc người tiếp theo, phải vệ sinh tay."
+      );
+    }
+
+    function playMainVideo() {
+      const video = document.getElementById("mainHandwashingVideo");
+      if (!video) return;
+      video.play().catch(() => {});
+      video.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function unmuteMainVideo() {
+      const video = document.getElementById("mainHandwashingVideo");
+      if (!video) return;
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {});
+      video.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function speakStep(index) {
+      const step = sevenSteps[index];
+      speakPair(`${step.key}，${step.zh}。`, `${step.vi}.`);
+    }
+
+    function speakSevenSteps() {
+      const zh = sevenSteps.map(step => `${step.key}，${step.zh}`).join("。");
+      const vi = sevenSteps.map(step => step.vi).join(". ");
+      speakPair(zh, vi);
+    }
+
+    function speakCurrentQuestion() {
+      const item = quiz[current];
+      speakPair(item.zh, item.vi);
+    }
+
+    function repeatFeedback() {
+      if (!lastFeedback) {
+        speakPair("請先選擇答案。", "Vui lòng chọn câu trả lời trước.");
+        return;
+      }
+      speakPair(lastFeedback.zh, lastFeedback.vi);
+    }
+
+    function speakSurvey() {
+      speakPair(
+        "請依照今天課程的時間安排、場地設備、講師方式、授課內容、工作協助、學習收穫給一到五分。",
+        "Vui lòng chấm từ một đến năm điểm cho thời gian học, thiết bị, phương pháp giảng dạy, nội dung, hỗ trợ công việc và điều học được hôm nay."
+      );
+    }
+
+    function speakRecordSummary() {
+      speakPair(
+        "這裡列出十二位學員在一一五年八月與九月不同日期的手部衛生互動答題記錄，可查看每題正確或需複習。",
+        "Phần này liệt kê kết quả trả lời của mười hai học viên trong các ngày khác nhau của tháng tám và tháng chín, có thể xem từng câu đúng hoặc cần ôn lại."
+      );
+    }
+
+    function speakSurveyItem(index) {
+      const item = surveyItems[index];
+      speakPair(item.zh, item.vi);
+    }
+
+    function updateSurvey(index, value) {
+      document.getElementById(`surveyValue${index}`).textContent = `${value}分`;
+    }
+
+    renderSteps();
+    renderPhotoGallery();
+    renderSurvey();
+    renderRecords();
+    renderQuestion();
+    updateScore();
+
+    window.addEventListener("load", () => {
+      if (!location.hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }
+    });
+  </script>
+</body>
+</html>
